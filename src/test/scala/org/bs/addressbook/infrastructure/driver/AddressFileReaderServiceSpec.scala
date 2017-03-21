@@ -2,7 +2,7 @@ package org.bs.addressbook.infrastructure.driver
 
 import java.time.LocalDate
 
-import org.bs.addressbook.app.AddressEntityAssembler
+import org.bs.addressbook.app.PersonAssembler
 import org.bs.addressbook.domain.{Male, Person}
 import org.mockito.Matchers.any
 import org.mockito.Mockito._
@@ -11,7 +11,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class AddressFileReaderServiceSpec extends WordSpec with Matchers with MockitoSugar {
 
-  private val assemblerMock = mock[AddressEntityAssembler]
+  private val assemblerMock = mock[PersonAssembler]
 
   "Address file repository" should {
     "return a success when the file is loaded" in {

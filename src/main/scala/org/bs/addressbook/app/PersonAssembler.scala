@@ -8,7 +8,7 @@ import org.bs.addressbook.domain.{Female, Male, Person}
 
 import scala.util.{Failure, Success, Try}
 
-class AddressEntityAssembler {
+class PersonAssembler {
 
   def toDomain(row: String): Option[Person] = {
     Try {
@@ -24,7 +24,7 @@ class AddressEntityAssembler {
             case "Male" => Male
             case "Female" => Female
           }
-          
+
           Person(name = nameOfPerson, gender = gen, birthDate = LocalDate.parse(birthDate, formatter))
         }
       }

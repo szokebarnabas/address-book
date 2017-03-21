@@ -6,7 +6,7 @@ import org.bs.addressbook.domain.{Female, Gender, Male}
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
-class AddressEntityAssemblerSpec extends WordSpec with Matchers {
+class PersonAssemblerSpec extends WordSpec with Matchers {
 
   private val rowsWithCorrectData =
     Table(
@@ -26,7 +26,7 @@ class AddressEntityAssemblerSpec extends WordSpec with Matchers {
 
   "Address assembler" should {
     "successfully create Person objects from the input string" in {
-      val assembler = new AddressEntityAssembler
+      val assembler = new PersonAssembler
 
       forAll(rowsWithCorrectData) { (row: String, expectedName: String, expGender: Gender, expBirthDate: LocalDate) =>
         val result = assembler.toDomain(row)
@@ -41,7 +41,7 @@ class AddressEntityAssemblerSpec extends WordSpec with Matchers {
     }
 
     "return none for invalid rows" in {
-      val assembler = new AddressEntityAssembler
+      val assembler = new PersonAssembler
 
       forAll(rowsWithIncorrectData) { (row: String, _: String, _: Gender, _: LocalDate) =>
         val result = assembler.toDomain(row)
