@@ -37,6 +37,13 @@ class AddressBook(addressRepository: AddressRepository) {
       case Failure(t) => Left(t.getMessage)
     }
   }
+
+  def findPersonByName(name: String) : Option[Person] = {
+    addressRepository.findAll() match {
+      case Success(people) => people.find(_.name == name)
+      case Failure(_) => None
+    }
+  }
 }
 
 object AddressBook {

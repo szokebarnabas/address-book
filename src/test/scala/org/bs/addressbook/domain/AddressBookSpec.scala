@@ -50,5 +50,25 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
 
       result shouldBe Left("error message")
     }
+
+    "find person by name" in {
+      val addressService = mock[AddressRepository]
+      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      val addressBook = new AddressBook(addressService)
+
+      val result = addressBook.findPersonByName("John Doe")
+
+      result shouldBe Some(JohnDoe)
+    }
+
+    "return none when the person is not found" in {
+      val addressService = mock[AddressRepository]
+      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      val addressBook = new AddressBook(addressService)
+
+      val result = addressBook.findPersonByName("FooBar")
+
+      result shouldBe None
+    }
   }
 }
