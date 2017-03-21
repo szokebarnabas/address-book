@@ -3,6 +3,8 @@ package org.bs.addressbook.domain
 import java.time.LocalDate
 import java.util.UUID
 
+import scala.util.{Failure, Success}
+
 sealed trait Gender
 
 case object Male extends Gender
@@ -14,10 +16,13 @@ case class Person(val userId: String = UUID.randomUUID().toString,
                   val gender: Gender,
                   val birthDate: LocalDate)
 
-class AddressBook(addressRepository: AddressService) {
+class AddressBook(addressService: AddressService) {
 
-  def numberOfMales() : Int = {
-    ???
+  def numberOfMales() : Either[String, Int] = {
+    addressService.findAll() match {
+      case Success(people) => Right(people.count(_.gender == Male))
+      case Failure(t) => Left(t.getMessage)
+    }
   }
 
   def oldestPerson() : String = {
