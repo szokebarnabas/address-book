@@ -22,7 +22,7 @@ class AddressFileReaderServiceSpec extends WordSpec with Matchers with MockitoSu
       val result = repository.findAll()
 
       result.isSuccess shouldBe true
-      result.get nonEmpty
+      result.get.nonEmpty
     }
 
     "return a failure when the file is not available" in {

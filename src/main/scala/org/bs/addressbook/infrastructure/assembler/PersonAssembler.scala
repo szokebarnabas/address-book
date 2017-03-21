@@ -13,7 +13,7 @@ class PersonAssembler {
   def toDomain(row: String): Option[Person] = {
     Try {
       row.split(", ") match {
-        case Array(nameOfPerson, gender, birthDate) => {
+        case Array(nameOfPerson, gender, birthDate) =>
 
           val formatter = new DateTimeFormatterBuilder()
             .appendPattern("dd/MM/")
@@ -26,11 +26,11 @@ class PersonAssembler {
           }
 
           Person(name = nameOfPerson, gender = gen, birthDate = LocalDate.parse(birthDate, formatter))
-        }
+
       }
     } match {
       case Success(person) => Some(person)
-      case Failure(t) => None
+      case Failure(_) => None
     }
   }
 
