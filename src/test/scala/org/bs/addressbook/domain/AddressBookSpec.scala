@@ -14,7 +14,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     "count the number of males" in {
       val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
-      val addressBook = new AddressBook(addressService)
+      val addressBook = AddressBook(addressService)
 
       val result = addressBook.numberOfMales()
 
@@ -24,7 +24,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     "return the error message if an exception was thrown in the male counter" in {
       val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Failure(new RuntimeException("error message")))
-      val addressBook = new AddressBook(addressService)
+      val addressBook = AddressBook(addressService)
 
       val result = addressBook.numberOfMales()
 
@@ -34,7 +34,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     "return the oldest person from the list" in {
       val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
-      val addressBook = new AddressBook(addressService)
+      val addressBook = AddressBook(addressService)
 
       val result = addressBook.oldestPerson()
 
@@ -44,7 +44,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     "returns the error message if an exception was thrown in the oldest person finder" in {
       val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Failure(new RuntimeException("error message")))
-      val addressBook = new AddressBook(addressService)
+      val addressBook = AddressBook(addressService)
 
       val result = addressBook.oldestPerson()
 
@@ -54,17 +54,27 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     "find person by name" in {
       val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
-      val addressBook = new AddressBook(addressService)
+      val addressBook = AddressBook(addressService)
 
       val result = addressBook.findPersonByName("John Doe")
 
       result shouldBe Some(JohnDoe)
     }
 
+    "return none when find person by name fails" in {
+      val addressService = mock[AddressRepository]
+      when(addressService.findAll()).thenReturn(Failure(new RuntimeException("error message")))
+      val addressBook = AddressBook(addressService)
+
+      val result = addressBook.findPersonByName("John Doe")
+
+      result shouldBe None
+    }
+
     "return none when the person is not found" in {
       val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
-      val addressBook = new AddressBook(addressService)
+      val addressBook = AddressBook(addressService)
 
       val result = addressBook.findPersonByName("FooBar")
 
