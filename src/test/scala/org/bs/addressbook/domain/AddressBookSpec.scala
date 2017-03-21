@@ -30,5 +30,15 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
 
       result shouldBe Left("error message")
     }
+
+    "return the oldest person from the list" in {
+      val addressService = mock[AddressService]
+      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      val addressBook = new AddressBook(addressService)
+
+      val result = addressBook.oldestPerson()
+
+      result shouldBe Right(BillyBob)
+    }
   }
 }
