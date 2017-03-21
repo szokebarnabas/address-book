@@ -3,6 +3,7 @@ package org.bs.addressbook.app
 import java.time.LocalDate
 
 import org.bs.addressbook.domain.{Female, Gender, Male}
+import org.bs.addressbook.infrastructure.assembler.PersonAssembler
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.prop.TableDrivenPropertyChecks._
 

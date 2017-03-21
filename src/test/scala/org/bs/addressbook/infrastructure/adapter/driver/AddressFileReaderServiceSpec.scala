@@ -1,9 +1,9 @@
-package org.bs.addressbook.infrastructure.driver
+package org.bs.addressbook.infrastructure.adapter.driver
 
 import java.time.LocalDate
 
-import org.bs.addressbook.app.PersonAssembler
 import org.bs.addressbook.domain.{Male, Person}
+import org.bs.addressbook.infrastructure.assembler.PersonAssembler
 import org.mockito.Matchers.any
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar

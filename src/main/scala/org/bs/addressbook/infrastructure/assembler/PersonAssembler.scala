@@ -1,4 +1,4 @@
-package org.bs.addressbook.app
+package org.bs.addressbook.infrastructure.assembler
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatterBuilder
