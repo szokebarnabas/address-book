@@ -12,7 +12,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
   "AddressBook" should {
 
     "count the number of males" in {
-      val addressService = mock[AddressService]
+      val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
       val addressBook = new AddressBook(addressService)
 
@@ -22,7 +22,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     }
 
     "return the error message if an exception was thrown in the male counter" in {
-      val addressService = mock[AddressService]
+      val addressService = mock[AddressRepository]
       val addressBook = new AddressBook(addressService)
       when(addressService.findAll()).thenReturn(Failure(new RuntimeException("error message")))
 
@@ -32,7 +32,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     }
 
     "return the oldest person from the list" in {
-      val addressService = mock[AddressService]
+      val addressService = mock[AddressRepository]
       when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
       val addressBook = new AddressBook(addressService)
 
@@ -42,7 +42,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
     }
 
     "returns the error message if an exception was thrown in the oldest person finder" in {
-      val addressService = mock[AddressService]
+      val addressService = mock[AddressRepository]
       val addressBook = new AddressBook(addressService)
       when(addressService.findAll()).thenReturn(Failure(new RuntimeException("error message")))
 

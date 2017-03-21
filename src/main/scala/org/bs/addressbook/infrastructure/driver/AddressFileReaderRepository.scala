@@ -3,13 +3,13 @@ package org.bs.addressbook.infrastructure.driver
 import java.io.InputStream
 
 import org.bs.addressbook.app.PersonAssembler
-import org.bs.addressbook.domain.{AddressService, Person}
+import org.bs.addressbook.domain.{AddressRepository, Person}
 
 import scala.io.Source
 import scala.util.Try
 
-class AddressFileReaderService(val file: InputStream,
-                               val addrAssembler: PersonAssembler) extends AddressService {
+class AddressFileReaderRepository(val file: InputStream,
+                                  val addrAssembler: PersonAssembler) extends AddressRepository {
 
   override def findAll(): Try[Iterator[Person]] = {
     Try {

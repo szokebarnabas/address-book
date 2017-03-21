@@ -2,6 +2,6 @@ package org.bs.addressbook.domain
 
 import scala.util.Try
 
-trait AddressService {
+trait AddressRepository {
   def findAll(): Try[Iterator[Person]]
 }

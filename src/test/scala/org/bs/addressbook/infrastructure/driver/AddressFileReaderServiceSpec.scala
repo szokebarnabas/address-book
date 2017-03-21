@@ -16,7 +16,7 @@ class AddressFileReaderServiceSpec extends WordSpec with Matchers with MockitoSu
   "Address file repository" should {
     "return a success when the file is loaded" in {
       val inputStream = getClass.getClassLoader().getResourceAsStream("AddressBook.txt")
-      val repository = new AddressFileReaderService(inputStream, assemblerMock)
+      val repository = new AddressFileReaderRepository(inputStream, assemblerMock)
       when(assemblerMock.toDomain(any[String])).thenReturn(Some(Person("id", "foobar", Male, LocalDate.now())))
 
       val result = repository.findAll()
@@ -27,7 +27,7 @@ class AddressFileReaderServiceSpec extends WordSpec with Matchers with MockitoSu
 
     "return a failure when the file is not available" in {
       val inputStream = getClass.getClassLoader().getResourceAsStream("Foo.txt")
-      val repository = new AddressFileReaderService(inputStream, assemblerMock)
+      val repository = new AddressFileReaderRepository(inputStream, assemblerMock)
 
       val result = repository.findAll()
 

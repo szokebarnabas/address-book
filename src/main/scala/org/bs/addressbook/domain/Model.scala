@@ -20,21 +20,25 @@ case class Person(val userId: String = UUID.randomUUID().toString,
   def howManyDaysOlderThan(other: Person): Long = ChronoUnit.DAYS.between(other.birthDate, birthDate)
 }
 
-class AddressBook(addressService: AddressService) {
+class AddressBook(addressRepository: AddressRepository) {
 
   implicit val localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
   def numberOfMales(): Either[String, Int] = {
-    addressService.findAll() match {
+    addressRepository.findAll() match {
       case Success(people) => Right(people.count(_.gender == Male))
       case Failure(t) => Left(t.getMessage)
     }
   }
 
   def oldestPerson(): Either[String, Person] = {
-    addressService.findAll() match {
+    addressRepository.findAll() match {
       case Success(people) => Right(people.minBy(_.birthDate))
       case Failure(t) => Left(t.getMessage)
     }
   }
+}
+
+object AddressBook {
+  def apply(addressRepository: AddressRepository): AddressBook = new AddressBook(addressRepository)
 }
