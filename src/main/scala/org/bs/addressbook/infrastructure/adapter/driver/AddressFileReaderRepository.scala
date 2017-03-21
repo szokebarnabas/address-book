@@ -8,15 +8,16 @@ import org.bs.addressbook.infrastructure.assembler.PersonAssembler
 import scala.io.Source
 import scala.util.Try
 
-class AddressFileReaderRepository(val file: InputStream,
+class AddressFileReaderRepository(val inputStream: InputStream,
                                   val addrAssembler: PersonAssembler) extends AddressRepository {
 
-  override def findAll(): Try[Iterator[Person]] = {
+  override def findAll(): Try[Seq[Person]] = {
     Try {
       Source
-        .fromInputStream(file)
+        .fromInputStream(inputStream)
         .getLines()
         .flatMap(addrAssembler.toDomain)
+        .toSeq
     }
   }
 

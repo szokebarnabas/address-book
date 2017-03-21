@@ -24,22 +24,24 @@ class AddressBook(addressRepository: AddressRepository) {
 
   implicit val localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
+  private val people = addressRepository.findAll()
+
   def numberOfMales(): Either[String, Int] = {
-    addressRepository.findAll() match {
+    people match {
       case Success(people) => Right(people.count(_.gender == Male))
       case Failure(t) => Left(t.getMessage)
     }
   }
 
   def oldestPerson(): Either[String, Person] = {
-    addressRepository.findAll() match {
+    people match {
       case Success(people) => Right(people.minBy(_.birthDate))
       case Failure(t) => Left(t.getMessage)
     }
   }
 
   def findPersonByName(name: String) : Option[Person] = {
-    addressRepository.findAll() match {
+    people match {
       case Success(people) => people.find(_.name == name)
       case Failure(_) => None
     }

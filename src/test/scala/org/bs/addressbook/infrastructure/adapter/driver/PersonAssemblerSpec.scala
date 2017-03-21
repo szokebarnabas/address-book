@@ -1,11 +1,11 @@
-package org.bs.addressbook.app
+package org.bs.addressbook.infrastructure.adapter.driver
 
 import java.time.LocalDate
 
 import org.bs.addressbook.domain.{Female, Gender, Male}
 import org.bs.addressbook.infrastructure.assembler.PersonAssembler
-import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.prop.TableDrivenPropertyChecks._
+import org.scalatest.{Matchers, WordSpec}
 
 class PersonAssemblerSpec extends WordSpec with Matchers {
 

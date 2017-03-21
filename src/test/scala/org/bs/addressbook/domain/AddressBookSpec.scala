@@ -13,7 +13,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
 
     "count the number of males" in {
       val addressService = mock[AddressRepository]
-      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
       val addressBook = new AddressBook(addressService)
 
       val result = addressBook.numberOfMales()
@@ -33,7 +33,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
 
     "return the oldest person from the list" in {
       val addressService = mock[AddressRepository]
-      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
       val addressBook = new AddressBook(addressService)
 
       val result = addressBook.oldestPerson()
@@ -53,7 +53,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
 
     "find person by name" in {
       val addressService = mock[AddressRepository]
-      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
       val addressBook = new AddressBook(addressService)
 
       val result = addressBook.findPersonByName("John Doe")
@@ -63,7 +63,7 @@ class AddressBookSpec extends WordSpec with Matchers with MockitoSugar {
 
     "return none when the person is not found" in {
       val addressService = mock[AddressRepository]
-      when(addressService.findAll()).thenReturn(Try(Iterator(JohnDoe, JaneDoe, BillyBob)))
+      when(addressService.findAll()).thenReturn(Try(Seq(JohnDoe, JaneDoe, BillyBob)))
       val addressBook = new AddressBook(addressService)
 
       val result = addressBook.findPersonByName("FooBar")
